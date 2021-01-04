@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mybroadcastreceiver">
-        <activity android:name=".SmsReceiverActivity" />
+        <activity
+            android:name=".SmsReceiverActivity"
+            android:theme="@style/Theme.Broadcast.SmsReceiver" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

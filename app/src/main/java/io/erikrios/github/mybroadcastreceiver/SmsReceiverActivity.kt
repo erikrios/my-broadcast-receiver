@@ -25,7 +25,7 @@ class SmsReceiverActivity : AppCompatActivity() {
             finish()
         }
 
-        val senderNo = intent.getStringArrayExtra(EXTRA_SMS_NO)
+        val senderNo = intent.getStringExtra(EXTRA_SMS_NO)
         val senderMessage = intent.getStringExtra(EXTRA_SMS_MESSAGE)
 
         binding?.tvFrom?.text = getString(R.string.from, senderNo)

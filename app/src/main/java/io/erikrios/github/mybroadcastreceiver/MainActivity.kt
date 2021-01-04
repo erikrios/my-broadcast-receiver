@@ -1,5 +1,6 @@
 package io.erikrios.github.mybroadcastreceiver
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -26,7 +27,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-
+            R.id.btn_permission -> PermissionManager.check(
+                this,
+                Manifest.permission.RECEIVE_SMS,
+                SMS_REQUEST_CODE
+            )
         }
     }
 

@@ -1,8 +1,13 @@
 package io.erikrios.github.mybroadcastreceiver
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private var binding: ActivityMainBinding? = null
+    private lateinit var downloadReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +31,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         binding?.btnPermission?.setOnClickListener(this)
         binding?.btnDownload?.setOnClickListener(this)
+
+        downloadReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Log.d(DownloadService.TAG, "Download Selesai")
+                Toast.makeText(context, "Download Selesai", Toast.LENGTH_SHORT).show()
+            }
+        }
+        val downloadIntentFilter = IntentFilter(ACTION_DOWNLOAD_STATUS)
+        registerReceiver(downloadReceiver, downloadIntentFilter)
     }
 
     override fun onClick(v: View?) {
@@ -35,7 +50,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 SMS_REQUEST_CODE
             )
             R.id.btn_download -> {
-
+                val downloadServiceIntent = Intent(this, DownloadService::class.java)
+                startService(downloadServiceIntent)
             }
         }
     }
@@ -64,6 +80,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        unregisterReceiver(downloadReceiver)
         binding = null
     }
 }

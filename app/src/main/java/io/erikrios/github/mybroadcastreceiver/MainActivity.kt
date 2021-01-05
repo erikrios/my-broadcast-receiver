@@ -11,6 +11,7 @@ import io.erikrios.github.mybroadcastreceiver.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
+        const val ACTION_DOWNLOAD_STATUS = "download_status"
         private const val SMS_REQUEST_CODE = 101
     }
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding?.root)
 
         binding?.btnPermission?.setOnClickListener(this)
+        binding?.btnDownload?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -32,6 +34,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 Manifest.permission.RECEIVE_SMS,
                 SMS_REQUEST_CODE
             )
+            R.id.btn_download -> {
+
+            }
         }
     }
 
